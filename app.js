@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const db = require('./config/database');
-
+//require('./migrations/initialize_schemas')
 const index = require('./routes/index');
 const users = require('./routes/users');
 

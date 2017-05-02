@@ -1,8 +1,11 @@
-const sequelize = require('sequelize')
+const Sequelize = require('sequelize')
+const sequelize = require('../config/database')
 
-const User = sequelize.define('user', {
-  uuid: {
-    type: Sequelize.STRING
+const User = sequelize.define('User', {
+  id: {
+    type: Sequelize.UUID,   
+    defaultValue: Sequelize.UUIDV4,
+    primaryKey: true
   },
   firstName: {
     type: Sequelize.STRING
@@ -11,7 +14,5 @@ const User = sequelize.define('user', {
     type: Sequelize.STRING
   }
 })
-
-User.sync({ force: true })
 
 module.exports = User
