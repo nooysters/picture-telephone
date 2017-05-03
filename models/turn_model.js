@@ -1,39 +1,36 @@
-const Sequelize = require('sequelize')
-var sequelize = require('../config/database')
-
-const Turn = sequelize.define('Turns', {
-  id: {
-    type: Sequelize.UUID,
-    defaultValue: Sequelize.UUIDV4,
-    primaryKey: true
-  },
-
-  gameId: {
-    type: Sequelize.UUID
-  },
-
-  userId: {
-    type: Sequelize.UUID
-  },
-
-  basedOnTurn: {
-    type: Sequelize.UUID
-  },
-
-  round: {
-    type: Sequelize.INTEGER,
-    defaultValue: 1
-  },
-
-  // DRAW or GUESS
-  mode: {
-    type: Sequelize.STRING
-  },
-
-  entry: {
-    type: Sequelize.TEXT
-  },
-})
-
-
-module.exports = Turn
+module.exports = function(sequelize, DataTypes) {
+  return sequelize.define('Turn', {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true
+    },
+    gameId: {
+      type: DataTypes.UUID
+    },
+    userId: {
+      type: DataTypes.UUID
+    },
+    basedOnTurn: {
+      type: DataTypes.UUID
+    },
+    round: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1
+    },
+    // DRAW or GUESS
+    mode: {
+      type: DataTypes.STRING
+    },
+    entry: {
+      type: DataTypes.TEXT
+    }
+  }, {
+    classMethods: {
+      associate: function(models) {
+        models.Turn.belongsTo(models.User)
+        models.Turn.belongsTo(models.Game)
+      }
+    }
+  })
+}

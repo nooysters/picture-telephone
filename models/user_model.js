@@ -1,18 +1,21 @@
-const Sequelize = require('sequelize')
-const sequelize = require('../config/database')
-
-const User = sequelize.define('User', {
-  id: {
-    type: Sequelize.UUID,   
-    defaultValue: Sequelize.UUIDV4,
-    primaryKey: true
-  },
-  firstName: {
-    type: Sequelize.STRING
-  },
-  lastName: {
-    type: Sequelize.STRING
-  }
-})
-
-module.exports = User
+module.exports = function(sequelize, DataTypes) {
+  return sequelize.define('User', {
+    id: {
+      type: DataTypes.UUID,   
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true
+    },
+    firstName: {
+      type: DataTypes.STRING
+    },
+    lastName: {
+      type: DataTypes.STRING
+    }
+  }, {
+    classMethods: {
+      associate: function(models) {
+        models.User.hasMany(models.Turn)
+      }
+    }
+  })
+}
