@@ -1,4 +1,3 @@
-const app = require('express')()
 const User = require('../models').User
 
 exports.userCreate = (req, res, next) => {
